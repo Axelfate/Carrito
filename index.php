@@ -1,3 +1,8 @@
+<?php
+    include 'global/config.php';
+    include 'global/conexion.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,18 +40,31 @@
             <a href="#" class="badge badge-success">See your cart items</a>
         </div>
         <div class="row">
-            <div class="col-3">
-                <div class="card">
-                    <img title="title" class="card-img-top" src="files\img\producto.png" alt="Alternative">
-                    <div class="card-body">
-                        <span>Item Name</span>
-                        <h5 class="card-title">Price</h5>
-                        <p class="card-text">Description</p>
-                        <button class="btn btn-primary" type="button" name="btnAction" value="add" type="submit">Add to cart</button>
+            <?php
+                $cmd=$pdo->prepare("SELECT * FROM `products`");
+                $cmd->execute();
+                $productsList=$cmd->fetchAll(PDO::FETCH_ASSOC);
+                //print_r($productsList);
+            ?>
+            <?php foreach ($productsList as $item){ ?>
+                <div class="col-3">
+                    <div class="card">
+                        <img title="<?php echo $item['name']?>" class="card-img-top" src="<?php echo $item['image']?>" alt="Alternative" data-toggle="popover" data-content="<?php echo $item['description']?>" data-trigger="hover">
+                        <div class="card-body">
+                            <span><?php echo $item['name']?></span>
+                            <h5 class="card-title">$<?php echo $item['price']?></h5>
+                            <p class="card-text"><?php echo $item['description']?></p>
+                            <button class="btn btn-primary" type="button" name="btnAction" value="add" type="submit">Add to cart</button>
+                        </div>
                     </div>
                 </div>
-            </div>
+            <?php }?>
         </div>
     </div>
+    <script>
+        $(function () {
+            $('[data-toggle="popover"]').popover()
+        })
+    </script>
 </body>
 </html>
