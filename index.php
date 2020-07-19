@@ -5,12 +5,12 @@
     include 'templates/header.php';
 ?>
 
-
-<div class="alert alert-success">
-    Message
-    <?php echo $message ?>
-    <a href="#" class="badge badge-success">See your cart items</a>
-</div>
+<?php if($message!="") { ?>
+    <div class="alert alert-success">
+        <?php echo $message ?>
+        <a href="showCart.php" class="badge badge-success">See your cart items</a>
+    </div>
+<?php } ?>
 <div class="row">
     <?php
         $cmd=$pdo->prepare("SELECT * FROM `products`");

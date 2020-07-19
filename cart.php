@@ -47,18 +47,39 @@ if(isset($_POST['btnAction']))
                     'price' => $price
                 );
                 $_SESSION['CART'][0] = $products;
+                $message = "Item added to cart...";
             }
             else{
-                $Nproducts = count($_SESSION['CART']);
-                $products = array(
-                    'idproduct' => $idproduct,
-                    'name' => $name,
-                    'available' => $available,
-                    'price' => $price
-                );
-                $_SESSION['CART'][$Nproducts] = $products;
+                $ids = array_column($_SESSION['CART'], "idproduct");
+                if(in_array($idproduct, $ids)){
+                    echo "<script>alert('Item is selected')</script>";
+                    $message = "";
+                }else{
+                    $Nproducts = count($_SESSION['CART']);
+                    $products = array(
+                        'idproduct' => $idproduct,
+                        'name' => $name,
+                        'available' => $available,
+                        'price' => $price
+                    );
+                    $_SESSION['CART'][$Nproducts] = $products;
+                    $message = "Item added to cart...";
+                }
             }
-            $message = print_r($_SESSION,true);
+            //$message = print_r($_SESSION,true);
+        break;
+
+        case 'delete':
+            if(is_numeric(openssl_decrypt($_POST['idproduct'], ENCR, KEY))){
+                $idproduct = openssl_decrypt($_POST['idproduct'], ENCR, KEY);
+
+                foreach($_SESSION['CART'] as $index=>$product){
+                    if($product['idproduct']==$idproduct){
+                        unset($_SESSION['CART'][$index]);
+                    }
+                }
+            }
+
         break;
     }
 }

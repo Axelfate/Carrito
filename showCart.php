@@ -23,7 +23,18 @@
             <td width="15%" class="text-center"><?php echo $product['available'] ?></td>
             <td width="10%" class="text-center"><?php echo $product['price'] ?></td>
             <td width="20%" class="text-center"><?php echo number_format($product['price']*$product['available'],2); ?></td>
-            <td width="5%"><button class="btn btn-danger" type="button">Delete</button></td>
+
+            <form action="" method="post">
+            <input type="hidden" name="idproduct" id="idproduct" value="<?php echo openssl_encrypt($product['idproduct'], ENCR, KEY);?>">
+                <td width="5%">
+                    <button class="btn btn-danger" 
+                    type="submit"
+                    name="btnAction"
+                    value="delete"
+                    >Delete</button>
+                </td>
+            </form>
+            
         </tr>
         <?php $total = $total+($product['price']*$product['available']); ?>
         <?php } ?>
