@@ -1,6 +1,12 @@
 <?php
 
-//session_start();
+if(!isset($_SESSION)) {
+    session_start();
+}
+
+if(!isset($_SESSION['CARRITO'])){
+    $_SESSION['CARRITO']=array();
+}
 
 $mensaje=" ";
 
@@ -12,7 +18,7 @@ if(isset($_POST['btnAccion']))
     {
         // Evaluando el valor 'Agregar' del botón
         case 'Agregar':
-            // En caso de agregar un elemento al carrito, se enviará la info a través del formulario; validamos que toda la info esté correcta
+            // Validar la información del producto que se esté enviando a través del formulario
             if(is_numeric(openssl_decrypt($_POST['id'], COD, KEY)))
             {   
                 //Obtenemos ID desencriptado
@@ -33,7 +39,7 @@ if(isset($_POST['btnAccion']))
             else
             {   
                 $mensaje.= "nombre incorrecto";
-            //break;
+            
             }
 
             // precio del producto
@@ -45,22 +51,23 @@ if(isset($_POST['btnAccion']))
             else
             {   
                 $mensaje.= "precio incorrecto";
-            //break;
+            
             }
 
 
-            // cantidad del producto      $_POST['cantidad']      
-            if(is_numeric(openssl_decrypt(1, COD, KEY)))
+            // cantidad del producto            
+            if(is_numeric(openssl_decrypt($_POST['cantidad'], COD, KEY)))
             {   
-                $CANTIDAD = openssl_decrypt(1, COD, KEY);
+                $CANTIDAD = openssl_decrypt($_POST['cantidad'], COD, KEY);
                 $mensaje.= "cantidad correcta".$CANTIDAD."</br>"; 
             }
             else
             {   
                 $mensaje.= "cantidad incorrecta";
-            //break;
+            
             }
 
+            // Una vez validada la información enviada a través del formulario se agrega al carrito de compras
             // Evaluando si la variable de sesión no tiene ningún elemento agregado
             if(!isset($_SESSION['CARRITO']))
             {

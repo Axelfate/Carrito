@@ -1,13 +1,18 @@
 <?php
 
-session_start();
+//Si no está definida alguna variable de tipo $_SESSION se inicializa
+if(!isset($_SESSION)) {
+    session_start();
+}
+
+
 include 'ConexionBD/config.php';
 include 'ConexionBD/bdConexion.php';
 include 'carrito.php';
 include 'Plantillas/cabecera.php';
 
-?>
 
+?>
         <br>
         <div class="alert alert-info" role="alert">
               
