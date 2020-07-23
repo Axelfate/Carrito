@@ -94,6 +94,34 @@ if(isset($_POST['btnAccion']))
             $mensaje = print_r($_SESSION, true); 
 
         break;
+
+        // Evaluando el valor 'Eliminar' del botón
+        case 'Eliminar':
+            
+            if(is_numeric(openssl_decrypt($_POST['id'], COD, KEY)))
+            {   
+                //Obtenemos ID desencriptado
+                
+                $ID = openssl_decrypt($_POST['id'], COD, KEY);
+                
+                foreach($_SESSION['CARRITO'] as $indice=>$producto)
+                {
+
+                    // verificamos si el ID del producto guardado en la sesión 'CARRITO' es el mismo ID recibido por el método POST (formulario)
+                    if($producto['ID']==$ID)
+                    {
+                        // borramos el producto almacenado en la variable de sesión
+                        echo ($_SESSION['CARRITO'][$indice]);
+                        unset($_SESSION['CARRITO'][$indice]);
+                        //echo "<script>alert('Elemento borrado del carrito.')</script>";
+                    }
+                }
+            }
+            else
+            {   // no se pudo descifrar ID
+                $mensaje.= "ID incorrecto";
+            }
+        break;
     }
 }
 
