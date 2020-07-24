@@ -32,12 +32,24 @@ if(!empty($_SESSION['CARRITO'])) {?>
             <td width="15%" class="text-center"> <?php echo $producto['CANTIDAD']; ?> </td>
             <td width="20%" class="text-center"> <?php echo $producto['PRECIO']; ?> </td>
             <td width="20%" class="text-center"> <?php echo number_format($producto['CANTIDAD']*$producto['PRECIO'],2); ?> </td>
-            <td width="5%"> <button class="btn btn-danger" type="button"> Eliminar </button> </td>
+
+            <!--   BOTÓN ELIMINAR PRODUCTO DEL CARRITO, para el cual se requiere el 'id' para eliminarlo -->
+            <form action="" method="post">
+            <input type="hidden" name="id" id="id" value="<?php echo openssl_encrypt($producto['id'], COD, KEY)?>">
+                <td width="5%"> 
+                    <button class="btn btn-danger" 
+                    name="btnAccion" 
+                    value="Eliminar" 
+                    type="submit"> Eliminar </button> 
+                </td>
+            </form>
+            
         </tr>
         <!--   actualizando la variable total    -->
         <?php $total = $total + ($producto['CANTIDAD']*$producto['PRECIO']); ?>
         <?php } ?>
         
+
         <tr>
             <td colspan="3" align="right"> <h2> Total </h2></td>
             <td align="right"> <h2> $ <?php  echo number_format($total,2) ?> </h2> </td>
