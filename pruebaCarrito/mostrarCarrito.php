@@ -35,7 +35,7 @@ if(!empty($_SESSION['CARRITO'])) {?>
 
             <!--   BOTÓN ELIMINAR PRODUCTO DEL CARRITO, para el cual se requiere el 'id' para eliminarlo -->
             <form action="" method="post">
-            <input type="hidden" name="id" id="id" value="<?php echo openssl_encrypt($producto['id'], COD, KEY)?>">
+            <input type="hidden" name="id" id="id" value="<?php echo openssl_encrypt($producto['ID'], COD, KEY)?>">
                 <td width="5%"> 
                     <button class="btn btn-danger" 
                     name="btnAccion" 

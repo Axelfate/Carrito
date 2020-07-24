@@ -14,7 +14,7 @@ $mensaje=" ";
 
 if(isset($_POST['btnAccion']))
 {
-    switch(isset($_POST['btnAccion']))
+    switch($_POST['btnAccion'])
     {
         // Evaluando el valor 'Agregar' del botón
         case 'Agregar':
@@ -91,7 +91,7 @@ if(isset($_POST['btnAccion']))
                 $_SESSION['CARRITO'][$NumeroProductos]=$producto;
             }
             // Mensaje de los elementos agregados a la sesión 'CARRITO'
-            $mensaje = print_r($_SESSION, true); 
+            //$mensaje = print_r($_SESSION, true); 
 
         break;
 
@@ -111,7 +111,7 @@ if(isset($_POST['btnAccion']))
                     if($producto['ID']==$ID)
                     {
                         // borramos el producto almacenado en la variable de sesión
-                        echo ($_SESSION['CARRITO'][$indice]);
+                        //echo ($_SESSION['CARRITO'][$indice]);
                         unset($_SESSION['CARRITO'][$indice]);
                         //echo "<script>alert('Elemento borrado del carrito.')</script>";
                     }
